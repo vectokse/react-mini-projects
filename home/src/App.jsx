@@ -2,12 +2,14 @@ import styled from "styled-components";
 import Header from "./components/Header";
 import ProjectGallery from "./components/ProjectGallery";
 import { theme } from "./theme/theme";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
     <StyledApp>
       <Header />
       <ProjectGallery />
+      <Footer />
     </StyledApp>
   );
 }
