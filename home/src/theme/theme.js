@@ -8,6 +8,7 @@ const colors = {
   text_secondary: "#6b7280",
 
   dark: "#111111",
+  dark_hover: "#121212d4",
   white: "#ffffff",
 };
 
