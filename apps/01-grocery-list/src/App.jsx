@@ -1,26 +1,34 @@
 import { useState } from "react";
 import ListSummary from "./components/ListSummary";
-import ProductCard from "./components/ProductCard";
+import ProductList from "./components/ProductList";
 
 function App() {
-  const [checked, setChecked] = useState(false);
+  const [products, setProducts] = useState([
+    { id: 1, name: "Chocolat", checked: false },
+    { id: 2, name: "Avocats", checked: false },
+  ]);
 
-  const toogleProduct = () => {
-    setChecked(!checked);
+  const toggleProduct = (id) => {
+    const updatedProducts = products.map((product) =>
+      product.id === id ? { ...product, checked: !product.checked } : product,
+    );
+
+    setProducts(updatedProducts);
   };
 
-  const deleteProduct = () => {
-    alert("delete Product");
+  const deleteProduct = (id) => {
+    const updatedProducts = products.filter((product) => product.id !== id);
+
+    setProducts(updatedProducts);
   };
 
   return (
     <>
       <ListSummary />
-      <ProductCard
-        name={"chocolat"}
-        isCheck={checked}
-        onToggle={toogleProduct}
-        onDelete={deleteProduct}
+      <ProductList
+        products={products}
+        toggleProduct={toggleProduct}
+        deleteProduct={deleteProduct}
       />
     </>
   );
