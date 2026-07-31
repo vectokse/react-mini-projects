@@ -1,7 +1,9 @@
+import ListSummary from "./components/ListSummary";
+
 function App() {
   return (
     <>
-      <p>Grocery List</p>
+      <ListSummary />
     </>
   );
 }
