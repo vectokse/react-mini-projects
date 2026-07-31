@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ListSummary from "./components/ListSummary";
 import ProductList from "./components/ProductList";
+import styled from "styled-components";
 
 function App() {
   const [products, setProducts] = useState([
@@ -23,15 +24,24 @@ function App() {
   };
 
   return (
-    <>
+    <StyledApp>
       <ListSummary />
       <ProductList
         products={products}
         toggleProduct={toggleProduct}
         deleteProduct={deleteProduct}
       />
-    </>
+    </StyledApp>
   );
 }
+const StyledApp = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-width: 700px;
+  padding: 20px;
+  padding-top: 15vh;
+  gap: 28px;
+`;
 
 export default App;
