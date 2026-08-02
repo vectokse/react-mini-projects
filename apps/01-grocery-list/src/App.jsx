@@ -2,6 +2,7 @@ import { useState } from "react";
 import ListSummary from "./components/ListSummary";
 import ProductList from "./components/ProductList";
 import styled from "styled-components";
+import NewProductForm from "./components/NewProductForm";
 
 function App() {
   const [products, setProducts] = useState([
@@ -26,6 +27,7 @@ function App() {
   return (
     <StyledApp>
       <ListSummary />
+      <NewProductForm />
       <ProductList
         products={products}
         toggleProduct={toggleProduct}
