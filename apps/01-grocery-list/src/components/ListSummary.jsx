@@ -12,7 +12,7 @@ export default function ListSummary({ validated, total }) {
           label="Validés"
           value={validated}
           subLabel={`/ ${total}`}
-          progressPercent={(validated / total) * 100}
+          progressPercent={total !== 0 ? (validated / total) * 100 : undefined}
         />
       </div>
     </StyledSummary>
