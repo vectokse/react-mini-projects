@@ -2,17 +2,17 @@ import styled from "styled-components";
 import StatCard from "./StatCard";
 import { theme } from "../theme/theme";
 
-export default function ListSummary() {
+export default function ListSummary({ validated, total }) {
   return (
     <StyledSummary>
       <h1 className="title">Ma liste de courses</h1>
       <div className="stats-wrapper">
-        <StatCard label="Total Produits" value={3} subLabel="articles" />
+        <StatCard label="Total Produits" value={total} subLabel="articles" />
         <StatCard
           label="Validés"
-          value={1}
-          subLabel="/ 12"
-          progressPercent={(1 / 12) * 100}
+          value={validated}
+          subLabel={`/ ${total}`}
+          progressPercent={(validated / total) * 100}
         />
       </div>
     </StyledSummary>

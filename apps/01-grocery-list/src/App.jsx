@@ -7,6 +7,11 @@ import NewProductForm from "./components/NewProductForm";
 function App() {
   const [products, setProducts] = useState([]);
 
+  const totalProducts = products.length;
+  const validatedProducts = products.filter(
+    (product) => product.checked,
+  ).length;
+
   const toggleProduct = (id) => {
     const updatedProducts = products.map((product) =>
       product.id === id ? { ...product, checked: !product.checked } : product,
@@ -30,7 +35,7 @@ function App() {
 
   return (
     <StyledApp>
-      <ListSummary />
+      <ListSummary validated={validatedProducts} total={totalProducts} />
       <NewProductForm addNewProduct={addNewProduct} />
       <ProductList
         products={products}
