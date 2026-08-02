@@ -5,10 +5,7 @@ import styled from "styled-components";
 import NewProductForm from "./components/NewProductForm";
 
 function App() {
-  const [products, setProducts] = useState([
-    { id: 1, name: "Chocolat", checked: false },
-    { id: 2, name: "Avocats", checked: false },
-  ]);
+  const [products, setProducts] = useState([]);
 
   const toggleProduct = (id) => {
     const updatedProducts = products.map((product) =>
@@ -24,10 +21,17 @@ function App() {
     setProducts(updatedProducts);
   };
 
+  const addNewProduct = (name) => {
+    setProducts([
+      ...products,
+      { id: crypto.randomUUID(), name: name, checked: false },
+    ]);
+  };
+
   return (
     <StyledApp>
       <ListSummary />
-      <NewProductForm />
+      <NewProductForm addNewProduct={addNewProduct} />
       <ProductList
         products={products}
         toggleProduct={toggleProduct}

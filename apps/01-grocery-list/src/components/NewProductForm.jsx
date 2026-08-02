@@ -1,10 +1,24 @@
 import styled from "styled-components";
 import { theme } from "../theme/theme";
 import { MdAddShoppingCart } from "react-icons/md";
+import { useState } from "react";
 
-export default function NewProductForm() {
+export default function NewProductForm({ addNewProduct }) {
+  const [newProductName, setNewProductName] = useState("");
+
+  const handleChangeName = (e) => {
+    setNewProductName(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newProductName.trim()) return;
+    addNewProduct(newProductName);
+    setNewProductName("");
+  };
+
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmit}>
       <span className="icon-wrapper">
         <MdAddShoppingCart />
       </span>
@@ -12,13 +26,15 @@ export default function NewProductForm() {
         className="input"
         type="text"
         placeholder="Ajouter un nouveau produit..."
+        value={newProductName}
+        onChange={handleChangeName}
       />
       <button className="add-button">+</button>
     </StyledForm>
   );
 }
 
-const StyledForm = styled.div`
+const StyledForm = styled.form`
   display: flex;
   gap: 20px;
   background-color: ${theme.colors.surface};
