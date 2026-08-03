@@ -1,16 +1,15 @@
-import MenuItem from "./components/MenuItem";
-import { MdOutlineDashboard } from "react-icons/md";
+import NavMenu from "./components/NavMenu";
+import { useLocation } from "react-router";
 
 function App() {
+  const location = useLocation();
+  const PageName =
+    location.pathname != "/" ? location.pathname.slice(1) : "home";
   return (
     <>
+      <NavMenu />
       <p>sidebar</p>
-      <MenuItem
-        icon={<MdOutlineDashboard />}
-        label="Dashboard"
-        isActive={true}
-        Link={"/"}
-      />
+      <h2>{PageName}</h2>
     </>
   );
 }
