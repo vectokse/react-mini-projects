@@ -30,20 +30,22 @@ export default function SideBar() {
 
 const StyledSideBar = styled.aside`
   display: grid;
-  grid-template-rows: 60px 1fr 80px;
+  grid-template-rows: 80px 1fr 60px;
   position: absolute;
   top: 0;
   left: 0;
-  width: 250px;
-  height: 100vh;
-  padding: 20px 20px;
+  width: 320px;
+  min-height: 100vh;
+  padding: 25px;
   background-color: ${theme.colors.surface};
+  border-right: 0.1rem solid ${theme.colors.border};
+  box-shadow: ${theme.shadow.sm};
   transform: translate(${(props) => (props.$isOpen ? 0 : "-100%")});
   transition: transform 0.2s;
 
   .btn-wrapper {
     position: absolute;
-    top: 25px;
+    top: 30px;
     right: -52px;
 
     .sidebar-btn {

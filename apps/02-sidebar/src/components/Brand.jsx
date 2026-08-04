@@ -17,6 +17,8 @@ const StyledBrand = styled.div`
   display: flex;
   align-items: center;
   gap: 11px;
+  padding-bottom: 25px;
+  border-bottom: 0.15rem solid ${theme.colors.border};
 
   .name {
     color: ${theme.colors.textPrimary};

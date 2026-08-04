@@ -24,6 +24,7 @@ const SyledSocial = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
+  padding-top: 25px;
 
   .social-item {
     padding: 7px;

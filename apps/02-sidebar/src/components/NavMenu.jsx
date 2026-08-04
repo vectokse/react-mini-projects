@@ -2,6 +2,7 @@ import MenuItem from "./MenuItem";
 import styled from "styled-components";
 import { useLocation } from "react-router";
 import { configMenu } from "./configSideBar";
+import theme from "../theme/theme";
 
 export default function NavMenu() {
   const { pathname } = useLocation();
@@ -24,4 +25,6 @@ const StyledNavMenu = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 30px 0;
+  border-bottom: 0.15rem solid ${theme.colors.border};
 `;
