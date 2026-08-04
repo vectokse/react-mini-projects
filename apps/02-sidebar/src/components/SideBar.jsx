@@ -2,11 +2,12 @@ import styled from "styled-components";
 import NavMenu from "./NavMenu";
 import theme from "../theme/theme";
 import Social from "./Social";
+import Brand from "./Brand";
 
 export default function SideBar() {
   return (
     <StyledSideBar>
-      <div>Brand</div>
+      <Brand />
       <NavMenu />
       <Social />
     </StyledSideBar>
