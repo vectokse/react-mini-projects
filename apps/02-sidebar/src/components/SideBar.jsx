@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import NavMenu from "./NavMenu";
 import theme from "../theme/theme";
+import Social from "./Social";
 
 export default function SideBar() {
   return (
     <StyledSideBar>
       <div>Brand</div>
       <NavMenu />
-      <div>Social</div>
+      <Social />
     </StyledSideBar>
   );
 }
