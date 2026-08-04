@@ -1,5 +1,5 @@
-import NavMenu from "./components/NavMenu";
 import { useLocation } from "react-router";
+import SideBar from "./components/SideBar";
 
 function App() {
   const location = useLocation();
@@ -7,7 +7,7 @@ function App() {
     location.pathname != "/" ? location.pathname.slice(1) : "home";
   return (
     <>
-      <NavMenu />
+      <SideBar />
       <p>sidebar</p>
       <h2>{PageName}</h2>
     </>
