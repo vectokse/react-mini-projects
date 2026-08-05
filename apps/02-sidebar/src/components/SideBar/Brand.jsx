@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Logo from "./Logo";
-import theme from "../theme/theme";
+import theme from "../../theme/theme";
 
 export default function Brand() {
   return (

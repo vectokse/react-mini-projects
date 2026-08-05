@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../theme/theme";
+import theme from "../../theme/theme";
 import { configSocials } from "./configSideBar";
 
 export default function Social() {

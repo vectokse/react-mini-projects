@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import NavMenu from "./NavMenu";
-import theme from "../theme/theme";
+import theme from "../../theme/theme";
 import Social from "./Social";
 import Brand from "./Brand";
 import { LuPanelLeftOpen } from "react-icons/lu";
 import { LuPanelRightOpen } from "react-icons/lu";
 import { useState } from "react";
-import ToggleButton from "./ToggleButton";
+import ToggleButton from "../ToggleButton";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);

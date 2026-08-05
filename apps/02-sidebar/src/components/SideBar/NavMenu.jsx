@@ -2,7 +2,7 @@ import MenuItem from "./MenuItem";
 import styled from "styled-components";
 import { useLocation } from "react-router";
 import { configMenu } from "./configSideBar";
-import theme from "../theme/theme";
+import theme from "../../theme/theme";
 
 export default function NavMenu() {
   const { pathname } = useLocation();

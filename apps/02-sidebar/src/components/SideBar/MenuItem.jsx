@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../theme/theme";
+import theme from "../../theme/theme";
 import { Link } from "react-router";
 
 export default function MenuItem({ icon, label, isActive, link }) {
