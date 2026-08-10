@@ -21,6 +21,8 @@ export default function ListSummary({ validated, total }) {
 
 const StyledSummary = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap : 20px;
   justify-content: space-between;
   align-items: center;
   font-family: ${theme.font.family.sans};
