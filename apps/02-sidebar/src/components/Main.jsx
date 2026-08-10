@@ -16,7 +16,7 @@ function Main() {
 
 const StyledMain = styled.main`
   background-color: ${theme.colors.background};
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;

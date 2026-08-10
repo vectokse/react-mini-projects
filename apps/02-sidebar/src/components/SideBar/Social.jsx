@@ -4,7 +4,7 @@ import { configSocials } from "./configSideBar";
 
 export default function Social() {
   return (
-    <SyledSocial>
+    <StyledSocial>
       {configSocials.map((social) => (
         <a
           key={social.link}
@@ -12,23 +12,30 @@ export default function Social() {
           className="social-item"
           aria-label={social.aria_label}
         >
-          <i desert-hidden="true">{<social.icon />}</i>
+          <i aria-hidden="true">
+            <social.icon />
+          </i>
         </a>
       ))}
-    </SyledSocial>
+    </StyledSocial>
   );
 }
 
-const SyledSocial = styled.div`
+const StyledSocial = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  padding-top: 25px;
+  padding: 25px 0px;
 
   .social-item {
     padding: 7px;
     text-decoration: none;
+    font-size: ${theme.font.size.md};
     color: ${theme.colors.textSecondary};
+  }
+
+  ${theme.device.isNotShort} {
+    padding: 25px 0 0 0;
   }
 `;

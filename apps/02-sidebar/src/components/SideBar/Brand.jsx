@@ -17,7 +17,7 @@ const StyledBrand = styled.div`
   display: flex;
   align-items: center;
   gap: 11px;
-  padding-bottom: 25px;
+  padding: 25px;
   border-bottom: 0.15rem solid ${theme.colors.border};
 
   .name {
@@ -30,5 +30,9 @@ const StyledBrand = styled.div`
     width: 32px;
     height: 32px;
     object-fit: contain;
+  }
+
+  ${theme.device.isNotShort} {
+    padding: 0 0 25px 0;
   }
 `;
