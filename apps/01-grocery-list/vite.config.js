@@ -5,5 +5,8 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/react-mini-projects/grocery-list/",
-  build: { outDir: "../dist/grocery-list" },
+  build: {
+    outDir: "../../dist/grocery-list",
+    emptyOutDir: false,
+  },
 });
