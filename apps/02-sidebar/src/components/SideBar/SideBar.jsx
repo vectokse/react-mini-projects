@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useContext } from "react";
 import { LuPanelLeftOpen, LuPanelRightOpen } from "react-icons/lu";
 import NavMenu from "./NavMenu";
 import Social from "./Social";
 import Brand from "./Brand";
 import ToggleButton from "../ToggleButton";
 import theme from "../../theme/theme";
+import { SideBarContext } from "../../context/SideBarContext";
 
 export default function SideBar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useContext(SideBarContext);
 
   return (
     <StyledSideBar $isOpen={isOpen}>
