@@ -12,8 +12,8 @@ export const projects = [
   {
     id: 2,
     title: "Navbar",
-    imageUrl: "default-project.png",
-    link: "https://github.com",
+    imageUrl: "sidebar-preview.png",
+    link: "sidebar/",
   },
   {
     id: 3,
