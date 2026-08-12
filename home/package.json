@@ -1,17 +1,10 @@
 {
-  "name": "react-mini-projects",
+  "name": "home",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "home"
-  ],
   "scripts": {
     "dev": "vite",
-    "clean": "rm -rf dist",
-    "build:all": "npm run clean && npm run build --workspaces --if-present",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
