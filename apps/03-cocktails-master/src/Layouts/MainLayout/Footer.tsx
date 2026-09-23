@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme from "../../theme/theme";
 import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import SocialLink from "../../components/reusable-ui/SocialLink";
+import { SOCIAL_LINKS } from "./Layout.config";
 
 export default function Footer() {
   return (
@@ -9,27 +10,11 @@ export default function Footer() {
       <div className="content-wrapper">
         <p>&copy; 2026 Cocktail Haven. Tous droits réservés.</p>
         <ul className="socials">
-          <li>
-            <SocialLink
-              href="https://instagram.com"
-              icon={<FaInstagram />}
-              label="Instagram"
-            />
-          </li>
-          <li>
-            <SocialLink
-              href="https://facebook.com"
-              icon={<FaFacebookF />}
-              label="Facebook"
-            />
-          </li>
-          <li>
-            <SocialLink
-              href="https://twitter.com"
-              icon={<FaTwitter />}
-              label="Twitter"
-            />
-          </li>
+          {SOCIAL_LINKS.map(({ id, href, icon, label }) => (
+            <li key={id}>
+              <SocialLink href={href} icon={icon} label={label} />
+            </li>
+          ))}
         </ul>
       </div>
     </FooterStyled>

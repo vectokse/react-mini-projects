@@ -24,11 +24,10 @@ const HeroSectionStyled = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60vh;
+  height: 50vh;
   min-height: 300px;
-  width: 100vw;
   flex-direction: column;
-  background-color: black;
+  background-color: ${theme.colors.black};
 
   .hero-bg {
     position: absolute;
@@ -55,7 +54,7 @@ const HeroSectionStyled = styled.section`
       font-family: ${theme.font.family.heading};
       font-size: ${theme.font.size.xxl};
       font-weight: ${theme.font.weight.bold};
-      color: #ffffff;
+      color: ${theme.colors.surface};
       letter-spacing: 0.5px;
 
       ${theme.device.tablet} {
@@ -67,7 +66,7 @@ const HeroSectionStyled = styled.section`
       font-family: ${theme.font.family.primary};
       font-size: ${theme.font.size.base};
       font-weight: ${theme.font.weight.regular};
-      color: #e5e7eb;
+      color: ${theme.colors.textLight};
       margin: 0;
       line-height: 1.5;
     }

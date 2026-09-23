@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Logo from "../../components/reusable-ui/Logo";
 import NavbarLink from "./NavbarLink";
 import theme from "../../theme/theme";
+import { NAVBAR_LINKS } from "./Layout.config";
 
 export default function Header() {
   return (
@@ -9,9 +10,9 @@ export default function Header() {
       <nav className="nav-content" aria-label="Navigation principale">
         <Logo />
         <ul>
-          <NavbarLink label="Accueil" link="/" />
-          <NavbarLink label="À propos" link="/about" />
-          <NavbarLink label="Favoris" link="/favoris" />
+          {NAVBAR_LINKS.map(({ id, label, link }) => (
+            <NavbarLink key={id} label={label} link={link} />
+          ))}
         </ul>
       </nav>
     </HeaderStyled>
@@ -44,4 +45,3 @@ const HeaderStyled = styled.header`
     }
   }
 `;
-

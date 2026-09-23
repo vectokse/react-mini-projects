@@ -22,5 +22,6 @@ const MainLayoutStyled = styled.div`
 
   .main-content {
     flex: 1;
+    z-index: 1;
   }
 `;
