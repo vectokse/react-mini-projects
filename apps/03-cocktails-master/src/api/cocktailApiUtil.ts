@@ -30,6 +30,10 @@ export function mapDrinkToCocktail(drink: any): Cocktail {
     }
   }
 
+  const tags: string[] = drink.strTags
+    ? drink.strTags.split(",").map((tag: string) => tag.trim())
+    : [];
+
   return {
     id: drink.idDrink,
     title: drink.strDrink,
@@ -38,5 +42,7 @@ export function mapDrinkToCocktail(drink: any): Cocktail {
     measures,
     imgSrc: drink.strDrinkThumb,
     category: drink.strCategory || "Inconnue",
+    glass: drink.strGlass || "Verre standard", 
+    tags,
   };
 }

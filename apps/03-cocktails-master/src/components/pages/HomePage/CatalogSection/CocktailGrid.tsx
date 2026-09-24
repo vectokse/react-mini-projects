@@ -38,7 +38,7 @@ export default function CocktailGrid({
             key={cocktail.id}
             title={cocktail.title}
             description={cocktail.ingredients.join(", ")}
-            to={cocktail.id}
+            to={`cocktail/${cocktail.id}`}
             imgSrc={cocktail.imgSrc}
           />
         ))}

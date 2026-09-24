@@ -1,13 +1,14 @@
 export interface Cocktail {
   id: string;
   title: string;
-  instruction : string;
+  instruction: string;
   ingredients: string[];
-  measures : string[];
+  measures: string[];
   imgSrc: string;
   category: string;
+  glass: string;
+  tags: string[];
 }
-
 export interface Filter{
   name: string;
   label: string;
@@ -29,7 +30,7 @@ export interface PaginatedCocktailResponse {
 // Le contrat de l'API
 export interface ICocktailApiClient {
   getRandom(): Promise<Cocktail>;
-  getCocktailById(name: string): Promise<Cocktail[]>;
+  getCocktailById(id: string): Promise<Cocktail>;
   searchCocktail(
     filter: string, 
     searchQuery: string, 
