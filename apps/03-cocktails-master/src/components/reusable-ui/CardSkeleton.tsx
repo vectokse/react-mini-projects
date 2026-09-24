@@ -4,10 +4,12 @@ import theme from "../../theme/theme";
 export default function CardSkeleton() {
   return (
     <SkeletonStyled>
-      <div className="skeleton-badge" />
+      <div className="skeleton-img"></div>
       <div className="skeleton-content">
-        <div className="skeleton-title" />
-        <div className="skeleton-text" />
+        <div className="info-group">
+          <div className="skeleton-title" />
+          <div className="skeleton-text" />
+        </div>
         <div className="skeleton-text short" />
       </div>
     </SkeletonStyled>
@@ -21,44 +23,43 @@ const pulse = keyframes`
 `;
 
 const SkeletonStyled = styled.div`
-  flex: 1;
-  height: 250px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: 195px;
   background: ${theme.colors.surfaceHover};
   border-radius: ${theme.radius.md};
-  padding: 24px;
-  display: flex;
   flex-direction: column;
-  justify-content: space-between;
   animation: ${pulse} 1.5s infinite ease-in-out;
-
-  .skeleton-badge {
-    width: 120px;
-    height: 24px;
-    background: ${theme.colors.textSecondary};
-    border-radius: ${theme.radius.sm};
-  }
 
   .skeleton-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 12px;
-  }
+    padding: 24px;
 
-  .skeleton-title {
-    width: 60%;
-    height: 24px;
-    background: ${theme.colors.textSecondary};
-    border-radius: ${theme.radius.sm};
-  }
+    .info-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
 
-  .skeleton-text {
-    width: 100%;
-    height: 16px;
-    background: ${theme.colors.textSecondary};
-    border-radius: ${theme.radius.sm};
+      .skeleton-title {
+        width: 60%;
+        height: 24px;
+        background: ${theme.colors.textSecondary};
+        border-radius: ${theme.radius.sm};
+      }
+    }
 
-    &.short {
-      width: 40%;
+    .skeleton-text {
+      width: 100%;
+      height: 16px;
+      background: ${theme.colors.textSecondary};
+      border-radius: ${theme.radius.sm};
+
+      &.short {
+        width: 40%;
+      }
     }
   }
 `;

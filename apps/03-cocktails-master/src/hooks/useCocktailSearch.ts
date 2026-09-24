@@ -33,6 +33,7 @@ export function useCocktailSearch() {
             setHasMore(response.pagination.hasNextPage);
             setTotalItems(response.pagination.totalItems);
             
+            // TODO: display less results if it is mobile
             // On s'assure d'afficher au moins la quantité initiale souhaitée si on l'a en stock
             setDisplayLimit(Math.min(PAGE_SIZE, response.data.length));
         } catch (err) {

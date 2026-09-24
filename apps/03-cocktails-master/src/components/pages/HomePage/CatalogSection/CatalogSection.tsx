@@ -67,14 +67,17 @@ export default function CatalogSection() {
 }
 
 const CatalogSectionStyled = styled.section`
-  padding: 80px 0px;
+  padding: 50px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
   .catalog-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 2rem;
+
     text-align: center;
 
     .title {

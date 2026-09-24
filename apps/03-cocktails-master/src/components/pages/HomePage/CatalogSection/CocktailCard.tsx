@@ -17,8 +17,10 @@ function CocktailCard({ title, description, to, imgSrc }: CocktailCardProps) {
         <img src={imgSrc} alt={title} />
       </div>
       <div className="content-wrapper">
-        <h4>{title}</h4>
-        <p>{description}</p>
+        <div className="info-group">
+          <h4>{title}</h4>
+          <p>{description}</p>
+        </div>
         <span>Voir la fiche &rarr;</span>
       </div>
     </CocktailCardStyled>
@@ -28,7 +30,9 @@ function CocktailCard({ title, description, to, imgSrc }: CocktailCardProps) {
 export default memo(CocktailCard);
 
 const CocktailCardStyled = styled(Link)`
-  display: block;
+  height: 12rem;
+  display: grid;
+  grid-template-columns: 40% 60%;
   text-decoration: none;
   background-color: ${theme.colors.surface};
   border-radius: ${theme.radius.md};
@@ -47,7 +51,6 @@ const CocktailCardStyled = styled(Link)`
   }
 
   .img-wrapper {
-    height: 12rem;
     background-color: ${theme.colors.surfaceHover};
     overflow: hidden;
 
@@ -61,13 +64,17 @@ const CocktailCardStyled = styled(Link)`
 
   .content-wrapper {
     padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid ${theme.colors.border};
 
     h4 {
       font-family: ${theme.font.family.heading};
       font-weight: ${theme.font.weight.bold};
       font-size: ${theme.font.size.md};
       color: ${theme.colors.textPrimary};
-      margin: 0 0 0.25rem 0;
+      margin: 0 0 0.4rem 0;
     }
 
     p {

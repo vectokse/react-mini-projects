@@ -1,8 +1,8 @@
 import { Link, type LinkProps } from "react-router";
-import styled from "styled-components";
 import theme from "../../../../theme/theme";
 import type { ReactNode } from "react";
 import { LuRefreshCcw } from "react-icons/lu";
+import styled from "styled-components";
 
 interface RandomCardProps extends LinkProps {
   title: string;
@@ -57,13 +57,14 @@ export default function RandomCard({
   );
 }
 
+
 const RandomCardStyled = styled(Link)<{ $color: string }>`
   display: flex;
   flex-direction: column;
   flex: 1;
   padding: 25px;
   position: relative;
-  min-height: 280px;
+  min-height: 450px;
   background-color: ${theme.colors.black};
   text-decoration: none;
   border-radius: ${theme.radius.lg};

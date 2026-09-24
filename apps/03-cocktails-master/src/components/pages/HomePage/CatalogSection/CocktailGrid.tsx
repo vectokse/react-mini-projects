@@ -57,28 +57,29 @@ export default function CocktailGrid({
 }
 
 const CocktailGridStyled = styled.div`
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
   .result-count {
     font-family: "Playfair Display", serif;
     font-size: ${theme.font.size.md};
     font-weight: ${theme.font.weight.semibold};
     color: ${theme.colors.textPrimary};
-    margin-bottom: 1.5rem;
   }
 
   .result-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    min-height: 400px;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     gap: 2rem;
-    margin-bottom: 2.5rem;
-
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
   }
 
   .load-more-container {
     display: flex;
     justify-content: center;
+    padding: 50px;
   }
 `;
 
@@ -86,27 +87,20 @@ function LoadingGrid() {
   return (
     <LoadingGridStyled>
       <div className="result-grid">
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
+        {Array.from({ length: 9 }).map((_, index) => (
+          <CardSkeleton key={index} />
+        ))}
       </div>
     </LoadingGridStyled>
   );
 }
 
 const LoadingGridStyled = styled.div`
+  padding: 60px 1.5rem;
   .result-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     gap: 2rem;
-    margin-bottom: 2.5rem;
-
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
   }
 `;
 
@@ -121,10 +115,14 @@ const EmptyGridStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 250px;
-  padding: 3rem 1.5rem;
-  margin: 2rem auto;
+  height: 500px;
+  padding: 60px 1.5rem;
+  margin: 0 auto;
   text-align: center;
+
+  ${theme.device.tablet} {
+    height: 350px;
+  }
 
   border-radius: ${theme.radius.md};
   color: ${theme.colors.textSecondary};

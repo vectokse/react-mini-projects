@@ -46,7 +46,7 @@ const DailyCardStyled = styled(Link)<{ $color: string }>`
   flex: 1;
   padding: 25px;
   position: relative;
-  min-height: 280px;
+  min-height: 450px;
   background-color: ${theme.colors.black};
   text-decoration: none;
   border-radius: ${theme.radius.lg};

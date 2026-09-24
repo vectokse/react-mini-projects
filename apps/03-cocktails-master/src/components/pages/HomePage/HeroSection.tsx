@@ -24,7 +24,7 @@ const HeroSectionStyled = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 60vh;
   min-height: 300px;
   flex-direction: column;
   background-color: ${theme.colors.black};
