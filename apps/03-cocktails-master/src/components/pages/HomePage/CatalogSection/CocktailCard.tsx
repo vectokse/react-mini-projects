@@ -1,6 +1,7 @@
 import { Link, type LinkProps } from "react-router";
 import styled from "styled-components";
 import theme from "../../../../theme/theme";
+import { memo } from "react";
 
 interface CocktailCardProps extends LinkProps {
   title: string;
@@ -9,12 +10,7 @@ interface CocktailCardProps extends LinkProps {
   imgSrc: string;
 }
 
-export default function CocktailCard({
-  title,
-  description,
-  to,
-  imgSrc,
-}: CocktailCardProps) {
+function CocktailCard({ title, description, to, imgSrc }: CocktailCardProps) {
   return (
     <CocktailCardStyled to={to}>
       <div className="img-wrapper">
@@ -28,6 +24,8 @@ export default function CocktailCard({
     </CocktailCardStyled>
   );
 }
+
+export default memo(CocktailCard);
 
 const CocktailCardStyled = styled(Link)`
   display: block;
