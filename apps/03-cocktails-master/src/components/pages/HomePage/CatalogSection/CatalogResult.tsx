@@ -1,28 +1,32 @@
 import type { Cocktail } from "../../../../types/cocktail.types";
 import CocktailCard from "./CocktailCard";
-import { IoIosArrowDown } from "react-icons/io";
-import PrimaryBtn from "../../../reusable-ui/PrimaryBtn";
 import CardSkeleton from "../../../reusable-ui/CardSkeleton";
 import styled from "styled-components";
 import theme from "../../../../theme/theme";
+import PrimaryBtn from "../../../reusable-ui/PrimaryBtn";
+import { IoIosArrowDown } from "react-icons/io";
+import { Spinner } from "../../../reusable-ui/Spinner";
+import LoadMore from "./LoadMore";
 
-interface CocktailGridProps {
+interface CatalogResultProps {
   isLoading: boolean;
   cocktails: Cocktail[];
   nbResult: number;
   hasMore: boolean;
+  isFetchingMore: boolean;
   loadMoreResult: () => {};
 }
 
-export default function CocktailGrid({
+export default function CatalogResult({
   isLoading,
   cocktails,
   nbResult,
   hasMore,
+  isFetchingMore,
   loadMoreResult,
-}: CocktailGridProps) {
-  if (isLoading && cocktails.length === 0) {
-    return <LoadingGrid />;
+}: CatalogResultProps) {
+  if (isLoading) {
+    return <LoadingGrid nbItems={9} />;
   }
 
   if (!isLoading && cocktails.length === 0) {
@@ -30,7 +34,7 @@ export default function CocktailGrid({
   }
 
   return (
-    <CocktailGridStyled>
+    <CatalogResultStyled>
       <h3 className="result-count">Résultats ({nbResult})</h3>
       <div className="result-grid">
         {cocktails.map((cocktail) => (
@@ -43,20 +47,12 @@ export default function CocktailGrid({
           />
         ))}
       </div>
-      {hasMore && (
-        <div className="load-more-container">
-          <PrimaryBtn
-            label="Voir plus de cocktails"
-            icon={IoIosArrowDown}
-            onClick={() => loadMoreResult()}
-          />
-        </div>
-      )}
-    </CocktailGridStyled>
+      <LoadMore hasMore={hasMore} isFetchingMore={isFetchingMore} loadMoreResult={loadMoreResult} />
+    </CatalogResultStyled>
   );
 }
 
-const CocktailGridStyled = styled.div`
+const CatalogResultStyled = styled.div`
   padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
@@ -75,19 +71,17 @@ const CocktailGridStyled = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     gap: 2rem;
   }
-
-  .load-more-container {
-    display: flex;
-    justify-content: center;
-    padding: 50px;
-  }
 `;
 
-function LoadingGrid() {
+interface LoadingGridProps {
+  nbItems: number;
+}
+
+function LoadingGrid({ nbItems }: LoadingGridProps) {
   return (
     <LoadingGridStyled>
       <div className="result-grid">
-        {Array.from({ length: 9 }).map((_, index) => (
+        {Array.from({ length: nbItems }).map((_, index) => (
           <CardSkeleton key={index} />
         ))}
       </div>

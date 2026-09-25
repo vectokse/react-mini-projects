@@ -16,12 +16,6 @@ export default function CardSkeleton() {
   );
 }
 
-const pulse = keyframes`
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }
-`;
-
 const SkeletonStyled = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
@@ -29,7 +23,6 @@ const SkeletonStyled = styled.div`
   background: ${theme.colors.surfaceHover};
   border-radius: ${theme.radius.md};
   flex-direction: column;
-  animation: ${pulse} 1.5s infinite ease-in-out;
 
   .skeleton-content {
     display: flex;
@@ -46,7 +39,7 @@ const SkeletonStyled = styled.div`
       .skeleton-title {
         width: 60%;
         height: 24px;
-        background: ${theme.colors.textSecondary};
+        background: rgb(219 220 221);
         border-radius: ${theme.radius.sm};
       }
     }
@@ -54,7 +47,7 @@ const SkeletonStyled = styled.div`
     .skeleton-text {
       width: 100%;
       height: 16px;
-      background: ${theme.colors.textSecondary};
+      background: rgb(219 220 221);
       border-radius: ${theme.radius.sm};
 
       &.short {

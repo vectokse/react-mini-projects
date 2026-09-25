@@ -6,6 +6,7 @@ import { DEFAULT_CATEGORY, PAGE_SIZE } from "../components/pages/HomePage/Catalo
 export function useCocktailSearch() {
     const [cocktails, setCocktails] = useState<Cocktail[]>([]);
     const [displayLimit, setDisplayLimit] = useState<number>(PAGE_SIZE);
+    const [isFetchingMore, setIsFetchingMore] = useState<boolean>(false); 
     
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -21,7 +22,6 @@ export function useCocktailSearch() {
      * 1. Recherche
      */
     const searchCocktails = async (searchQuery: string, currentFilter: string) => {
-        setIsLoading(true);
         setError(null);
         setPageIndex(0);
         setDisplayLimit(PAGE_SIZE);
@@ -67,7 +67,7 @@ export function useCocktailSearch() {
         }
 
         const nextPage = pageIndex + 1;
-        setIsLoading(true);
+        setIsFetchingMore(true)
         setError(null);
 
         try {
@@ -82,7 +82,7 @@ export function useCocktailSearch() {
             setError("Impossible de charger plus de cocktails.");
             console.error(err);
         } finally {
-            setIsLoading(false);
+            setIsFetchingMore(false)
         }
     };
 
@@ -90,6 +90,7 @@ export function useCocktailSearch() {
      * Effet avec Debounce de 400ms pour la recherche/filtres
      */
     useEffect(() => {
+        setIsLoading(true);
         const timer = setTimeout(() => {
             searchCocktails(query, filter);
         }, 400);
@@ -101,6 +102,7 @@ export function useCocktailSearch() {
     return {
         displayedCocktails :cocktails.slice(0, displayLimit),
         isLoading,
+        isFetchingMore,
         filter,
         setFilter,
         query,
