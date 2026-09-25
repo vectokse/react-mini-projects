@@ -4,7 +4,9 @@ import RandomCard from "./RandomCard";
 import DailyCard from "./DailyCard";
 import { useRandomCocktail } from "../../../../hooks/useRandomCocktail";
 import { useDailyCocktail } from "../../../../hooks/useDailyCocktail";
-import CardSkeleton from "../../../reusable-ui/CardSkeleton";
+import { LuRefreshCcw } from "react-icons/lu";
+import HighLightCardSkeleton from "./HighLightCardSkeleton";
+
 
 export default function HighLightSection() {
   const {
@@ -22,7 +24,7 @@ export default function HighLightSection() {
 
   return (
     <HighLightStyled className="HighLight-section">
-      {isDailyLoading && <CardSkeleton />}
+      {isDailyLoading && <HighLightCardSkeleton />}
 
       {dailyError && (
         <div className="error-message">
@@ -40,7 +42,7 @@ export default function HighLightSection() {
         />
       )}
 
-      {isRandomLoading && <CardSkeleton />}
+      {isRandomLoading && !randomCocktail && <HighLightCardSkeleton />}
 
       {randomError && (
         <div className="error-message">
@@ -48,16 +50,18 @@ export default function HighLightSection() {
         </div>
       )}
 
-      {!isRandomLoading && !randomError && randomCocktail && (
+      {randomCocktail && !randomError && (
         <RandomCard
           title={randomCocktail.title}
           description={randomCocktail.ingredients.join(", ")}
           to={`/cocktail/${randomCocktail.id}`}
           onClickAction={getRandomCocktail}
-          textAction="Changer de cocktail"
+          textAction={"Changer de cocktail"}
+          icon={<LuRefreshCcw />}
           imgSrc={randomCocktail.imgSrc}
           textBadge="🎲 Découverte Aléatoire"
           color="#923bdf"
+          isLoading={isRandomLoading}
         />
       )}
     </HighLightStyled>

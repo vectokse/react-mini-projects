@@ -1,8 +1,7 @@
 import { Link, type LinkProps } from "react-router";
 import theme from "../../../../theme/theme";
 import type { ReactNode } from "react";
-import { LuRefreshCcw } from "react-icons/lu";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface RandomCardProps extends LinkProps {
   title: string;
@@ -14,11 +13,10 @@ interface RandomCardProps extends LinkProps {
   icon?: ReactNode;
   textBadge?: string;
   color?: string;
+  isLoading?: boolean;
 }
 
 const DefaultColor = theme.colors.accent;
-
-const DefaultIcon = <LuRefreshCcw />;
 
 export default function RandomCard({
   title,
@@ -28,9 +26,31 @@ export default function RandomCard({
   textBadge,
   textAction,
   onClickAction,
-  icon = DefaultIcon,
+  icon,
   color = DefaultColor,
+  isLoading = false,
 }: RandomCardProps) {
+  if (isLoading) {
+    return (
+      <RandomCardStyled to={to} $color={color} className="is-loading">
+        <div className="card-bg" />
+        {textBadge && (
+          <div className="card-badge">
+            <span className="badge-tag">{textBadge}</span>
+          </div>
+        )}
+        <div className="card-content">
+          <div className="title" />
+          <div className="description" />
+          <div className="btn-action">
+            <span className="spinner" />
+            <span>Chargement...</span>
+          </div>
+        </div>
+      </RandomCardStyled>
+    );
+  }
+
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();
@@ -49,7 +69,7 @@ export default function RandomCard({
         <h3 className="title">{title}</h3>
         <p className="description">{description}</p>
         <button className="btn-action" onClick={handleButtonClick}>
-          <span className="btn-icon">{icon}</span>
+          {icon && <span className="btn-icon">{icon}</span>}
           <span>{textAction}</span>
         </button>
       </div>
@@ -57,6 +77,9 @@ export default function RandomCard({
   );
 }
 
+const spinAnimation = keyframes`
+  to { transform: rotate(360deg); }
+`;
 
 const RandomCardStyled = styled(Link)<{ $color: string }>`
   display: flex;
@@ -72,6 +95,52 @@ const RandomCardStyled = styled(Link)<{ $color: string }>`
   gap: 10px;
   cursor: pointer;
   box-shadow: ${theme.shadow.lg};
+  transition: all 0.4s ease-in-out;
+
+  &.is-loading {
+    pointer-events: none;
+    cursor: default;
+
+    .title,
+    .description {
+      color: transparent !important;
+      background-color: ${theme.colors.surfaceHover};
+      opacity: 0.33;
+      border-radius: ${theme.radius.sm};
+      user-select: none;
+    }
+
+    .title {
+      width: 30%;
+      height: 24px;
+      margin-bottom: 0.5rem;
+    }
+
+    .description {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 1rem;
+    }
+
+    .card-bg {
+      background-color: ${theme.colors.surfaceHover};
+      opacity: 0.33;
+      transform: scale(1.04);
+    }
+  }
+
+  .card-content {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 10;
+    color: ${theme.colors.surface};
+    gap: 1rem;
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   .card-bg {
     position: absolute;
@@ -81,10 +150,12 @@ const RandomCardStyled = styled(Link)<{ $color: string }>`
     object-fit: cover;
     opacity: 0.33;
     z-index: 0;
-    transition: transform 0.7s;
+    transition:
+      transform 0.7s ease,
+      opacity 0.4s ease;
   }
 
-  &:hover .card-bg {
+  &:hover:not(.is-loading) .card-bg {
     transform: scale(1.05);
   }
 
@@ -108,23 +179,13 @@ const RandomCardStyled = styled(Link)<{ $color: string }>`
     box-shadow: ${theme.shadow.sm};
   }
 
-  .card-content {
-    position: relative;
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    justify-content: flex-end;
-    z-index: 10;
-    color: ${theme.colors.surface};
-    gap: 1rem;
-  }
-
   .title {
     font-family: ${theme.font.family.heading};
     font-size: ${theme.font.size.xl};
     font-weight: ${theme.font.weight.bold};
     margin: 0 0 0.5rem 0;
     line-height: 1.2;
+    transition: background 0.3s ease;
   }
 
   .description {
@@ -138,19 +199,7 @@ const RandomCardStyled = styled(Link)<{ $color: string }>`
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.5;
-  }
-
-  .card-action {
-    font-family: ${theme.font.family.primary};
-    color: ${(props) => props.$color};
-    font-weight: ${theme.font.weight.semibold};
-    font-size: ${theme.font.size.base};
-    margin: 0;
-    transition: transform 0.3s ease;
-  }
-
-  &:hover .card-action {
-    transform: translateX(0.25rem);
+    transition: background 0.3s ease;
   }
 
   .btn-action {
@@ -184,11 +233,24 @@ const RandomCardStyled = styled(Link)<{ $color: string }>`
       width: 16px;
       height: 16px;
       color: ${theme.colors.surface};
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transition: transform 0.5s ease;
     }
 
     &:hover .btn-icon {
       transform: rotate(400deg);
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-left-color: ${theme.colors.surface};
+      border-radius: 50%;
+      animation: ${spinAnimation} 0.8s linear infinite;
+      display: inline-block;
     }
   }
 `;
