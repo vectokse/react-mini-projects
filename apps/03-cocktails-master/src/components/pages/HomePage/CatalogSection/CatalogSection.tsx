@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
 import SearchInput from "./SearchBar";
 import { Filters } from "./catalog.config";
-import CocktailGrid from "./CocktailGrid";
+import CatalogResult from "./CatalogResult";
 import PillsBtn from "./PillsBtn";
 
 import { useCocktailSearch } from "../../../../hooks/useCocktailSearch";
@@ -12,6 +12,7 @@ export default function CatalogSection() {
   const {
     displayedCocktails,
     isLoading,
+    isFetchingMore,
     filter: activeFilter,
     setFilter,
     query,
@@ -55,11 +56,12 @@ export default function CatalogSection() {
         </div>
       </div>
 
-      <CocktailGrid
+      <CatalogResult
         cocktails={displayedCocktails}
         isLoading={isLoading}
         nbResult={nbResult}
         hasMore={hasMore}
+        isFetchingMore={isFetchingMore}
         loadMoreResult={loadMoreResult}
       />
     </CatalogSectionStyled>

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import theme from "../../theme/theme";
-import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import SocialLink from "../../components/reusable-ui/SocialLink";
 import { SOCIAL_LINKS } from "./Layout.config";
 
