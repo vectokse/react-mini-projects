@@ -12,6 +12,7 @@ interface CatalogResultProps {
   hasMore: boolean;
   isFetchingMore: boolean;
   loadMoreResult: () => {};
+  errorMsg: string;
 }
 
 export default function CatalogResult({
@@ -21,13 +22,20 @@ export default function CatalogResult({
   hasMore,
   isFetchingMore,
   loadMoreResult,
+  errorMsg,
 }: CatalogResultProps) {
   if (isLoading) {
     return <LoadingGrid nbItems={9} />;
   }
 
+  if (errorMsg) {
+    return <EmptyGrid message={errorMsg} />;
+  }
+
   if (!isLoading && cocktails.length === 0) {
-    return <EmptyGrid />;
+    return (
+      <EmptyGrid message="🍸 Oups ! Aucun cocktail ne correspond à votre recherche." />
+    );
   }
 
   return (
@@ -44,7 +52,11 @@ export default function CatalogResult({
           />
         ))}
       </div>
-      <LoadMore hasMore={hasMore} isFetchingMore={isFetchingMore} loadMoreResult={loadMoreResult} />
+      <LoadMore
+        hasMore={hasMore}
+        isFetchingMore={isFetchingMore}
+        loadMoreResult={loadMoreResult}
+      />
     </CatalogResultStyled>
   );
 }
@@ -95,10 +107,14 @@ const LoadingGridStyled = styled.div`
   }
 `;
 
-function EmptyGrid() {
+interface EmptyGridProps {
+  message: string;
+}
+
+function EmptyGrid({ message }: EmptyGridProps) {
   return (
     <EmptyGridStyled>
-      <p>🍸 Oups ! Aucun cocktail ne correspond à votre recherche.</p>
+      <p>{message}</p>
     </EmptyGridStyled>
   );
 }

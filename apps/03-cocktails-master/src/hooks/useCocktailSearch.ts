@@ -9,7 +9,7 @@ export function useCocktailSearch() {
     const [isFetchingMore, setIsFetchingMore] = useState<boolean>(false); 
     
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string>("");
 
     const [query, setQuerry] = useState<string>("");
     const [filter, setFilter] = useState<string>(DEFAULT_CATEGORY);
@@ -22,7 +22,7 @@ export function useCocktailSearch() {
      * 1. Recherche
      */
     const searchCocktails = async (searchQuery: string, currentFilter: string) => {
-        setError(null);
+        setErrorMsg("");
         setPageIndex(0);
         setDisplayLimit(PAGE_SIZE);
 
@@ -37,7 +37,7 @@ export function useCocktailSearch() {
             // On s'assure d'afficher au moins la quantité initiale souhaitée si on l'a en stock
             setDisplayLimit(Math.min(PAGE_SIZE, response.data.length));
         } catch (err) {
-            setError("Impossible de récupérer les cocktails.");
+            setErrorMsg("Impossible de récupérer les cocktails.");
             console.error(err);
         } finally {
             setIsLoading(false);
@@ -68,7 +68,7 @@ export function useCocktailSearch() {
 
         const nextPage = pageIndex + 1;
         setIsFetchingMore(true)
-        setError(null);
+        setErrorMsg("");
 
         try {
             const response = await cocktailApiClient.searchCocktail(filter, query, nextPage);
@@ -79,7 +79,7 @@ export function useCocktailSearch() {
             setHasMore(response.pagination.hasNextPage);
             setTotalItems(response.pagination.totalItems);
         } catch (err) {
-            setError("Impossible de charger plus de cocktails.");
+            setErrorMsg("Impossible de charger plus de cocktails.");
             console.error(err);
         } finally {
             setIsFetchingMore(false)
@@ -110,6 +110,6 @@ export function useCocktailSearch() {
         loadMoreResult,
         nbResult:totalItems,
         hasMore: displayLimit < cocktails.length || hasMore,
-        error
+        errorMsg
     };
 }

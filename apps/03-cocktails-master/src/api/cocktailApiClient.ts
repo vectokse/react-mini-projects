@@ -14,12 +14,8 @@ async function fetchCategoryRawDrinks(filter: string): Promise<any[]> {
     if (!strategy) return [];
 
     const promises = strategy.values.map(async (val) => {
-        try {
             const response = await apiClient.get(`${ENDPOINTS.FILTER_BY_CATEGORY}?${strategy.filterType}=${val}`);
             return response.data.drinks || [];
-        } catch {
-            return [];
-        }
     });
 
     const resultsArrays = await Promise.all(promises);
@@ -92,18 +88,10 @@ export const cocktailApiClient = {
         searchQuery: string, 
         pageIndex: number
     ): Promise<PaginatedCocktailResponse> {
-        try {
-            if (filter === "all") {
-                return await handleAllSearch(searchQuery, pageIndex);
-            } else {
-                return await handleCategorySearch(filter, searchQuery);
-            }
-        } catch (error) {
-            console.error("Erreur lors de la recherche des cocktails :", error);
-            return { 
-                data: [], 
-                pagination: { currentPage: 1, totalPages: 0, totalItems: 0, hasNextPage: false } 
-            };
+        if (filter === "all") {
+            return await handleAllSearch(searchQuery, pageIndex);
+        } else {
+            return await handleCategorySearch(filter, searchQuery);
         }
     },
 };

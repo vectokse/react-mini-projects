@@ -20,7 +20,7 @@ export default function CatalogSection() {
     loadMoreResult,
     nbResult,
     hasMore,
-    error,
+    errorMsg,
   } = useCocktailSearch();
 
   return (
@@ -63,6 +63,7 @@ export default function CatalogSection() {
         hasMore={hasMore}
         isFetchingMore={isFetchingMore}
         loadMoreResult={loadMoreResult}
+        errorMsg={errorMsg}
       />
     </CatalogSectionStyled>
   );
