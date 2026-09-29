@@ -31,6 +31,7 @@ export interface PaginatedCocktailResponse {
 export interface ICocktailApiClient {
   getRandom(): Promise<Cocktail>;
   getCocktailById(id: string): Promise<Cocktail>;
+  getCocktailByIds(ids: string[]): Promise<Cocktail[]>;
   searchCocktail(
     filter: string, 
     searchQuery: string, 

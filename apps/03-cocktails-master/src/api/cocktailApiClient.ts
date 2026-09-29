@@ -83,6 +83,22 @@ export const cocktailApiClient = {
         return mapDrinkToCocktail(rawData);
     },
 
+    async  getCocktailByIds(ids: string[]): Promise<Cocktail[]>{
+        const promises = ids.map(async(id) => {
+            const response = await apiClient.get(`${ENDPOINTS.LOOKUP}?i=${id}`);
+            return  response.data.drinks || []
+        })
+
+
+        let resultsArrays = await Promise.all(promises);
+        resultsArrays = resultsArrays.flat();
+
+        const cocktails = resultsArrays.map((cocktailData) =>{
+            return mapDrinkToCocktail(cocktailData)
+        })
+        return cocktails
+    },
+
     async searchCocktail(
         filter: string, 
         searchQuery: string, 
