@@ -3,10 +3,11 @@ import styled from "styled-components";
 import theme from "../../theme/theme";
 
 interface PrimaryBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label?: string;
-  onClick?: () => void;
+  label: string;
+  onClick?: (e: React.MouseEvent) => void;
   icon?: React.ComponentType;
   className?: string;
+  size?: "sm" | "md";
 }
 
 export default function PrimaryBtn({
@@ -14,18 +15,23 @@ export default function PrimaryBtn({
   onClick,
   icon: Icon,
   className,
+  size = "md",
   ...extraProps
 }: PrimaryBtnProps) {
   return (
-    <PrimaryBtnStyled className={className} onClick={onClick} {...extraProps}>
+    <PrimaryBtnStyled
+      className={className}
+      onClick={onClick}
+      $size={size}
+      {...extraProps}
+    >
       <span>{label}</span>
       {Icon && <Icon />}
     </PrimaryBtnStyled>
   );
 }
 
-const PrimaryBtnStyled = styled.button`
-  padding: 0.875rem 2rem;
+const PrimaryBtnStyled = styled.button<{ $size: "sm" | "md" }>`
   background-color: ${theme.colors.surface};
   border: 2px solid ${theme.colors.accent};
   color: ${theme.colors.accent};
@@ -38,8 +44,11 @@ const PrimaryBtnStyled = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-size: ${theme.font.size.sm};
   cursor: pointer;
+
+  padding: ${({ $size }) => ($size === "sm" ? "0.5rem 1rem" : "0.875rem 2rem")};
+  font-size: ${({ $size }) =>
+    $size === "sm" ? "0.85rem" : theme.font.size.sm};
 
   &:hover {
     background-color: ${theme.colors.accent};
@@ -56,7 +65,7 @@ const PrimaryBtnStyled = styled.button`
   }
 
   svg {
-    width: 1rem;
-    height: 1rem;
+    width: ${({ $size }) => ($size === "sm" ? "0.85rem" : "1rem")};
+    height: ${({ $size }) => ($size === "sm" ? "0.85rem" : "1rem")};
   }
 `;
