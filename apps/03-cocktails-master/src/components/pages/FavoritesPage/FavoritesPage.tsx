@@ -78,7 +78,7 @@ const FavoritesPageStyled = styled.div`
   .result-grid {
     display: grid;
     min-height: 400px;
-    grid-template-columns: repeat(3, minmax(330px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     gap: 2rem;
   }
 
