@@ -1,6 +1,6 @@
 import { Link, type LinkProps } from "react-router";
 import styled from "styled-components";
-import theme from "../../../../theme/theme";
+import theme from "../../theme/theme";
 import { memo } from "react";
 
 interface CocktailCardProps extends LinkProps {
@@ -8,11 +8,31 @@ interface CocktailCardProps extends LinkProps {
   description: string;
   to: string;
   imgSrc: string;
+  footerText?: string;
+  iconAction?: React.ReactNode;
+  onActionClick?: (e: React.MouseEvent) => void;
 }
 
-function CocktailCard({ title, description, to, imgSrc }: CocktailCardProps) {
+function CocktailCard({
+  title,
+  description,
+  to,
+  imgSrc,
+  footerText,
+  iconAction,
+  onActionClick,
+  ...extraProps
+}: CocktailCardProps) {
+  const handleButtonClick = (e: React.MouseEvent) => {
+    if (onActionClick) {
+      e.preventDefault();
+      e.stopPropagation();
+      onActionClick(e);
+    }
+  };
+
   return (
-    <CocktailCardStyled to={to}>
+    <CocktailCardStyled to={to} {...extraProps}>
       <div className="img-wrapper">
         <img src={imgSrc} alt={title} />
       </div>
@@ -21,7 +41,14 @@ function CocktailCard({ title, description, to, imgSrc }: CocktailCardProps) {
           <h4>{title}</h4>
           <p>{description}</p>
         </div>
-        <span>Voir la fiche &rarr;</span>
+        <div className="card-footer">
+          <span className="txt-footer">{footerText}</span>
+          {iconAction && (
+            <button className="button-action" onClick={handleButtonClick}>
+              {iconAction}
+            </button>
+          )}
+        </div>
       </div>
     </CocktailCardStyled>
   );
@@ -84,11 +111,50 @@ const CocktailCardStyled = styled(Link)`
       margin: 0 0 0.75rem 0;
     }
 
-    span {
-      font-family: ${theme.font.family.primary};
-      color: ${theme.colors.accent};
-      font-size: ${theme.font.size.xs};
-      font-weight: ${theme.font.weight.semibold};
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+
+      .txt-footer {
+        font-family: ${theme.font.family.primary};
+        color: ${theme.colors.accent};
+        font-size: ${theme.font.size.xs};
+        font-weight: ${theme.font.weight.semibold};
+      }
+
+      .button-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        border-radius: ${theme.radius.full};
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+        color: ${theme.colors.accent};
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: ${theme.colors.accent};
+
+          svg {
+            transform: scale(1.15);
+          }
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+          transition: transform 0.2s ease;
+        }
+      }
     }
   }
 `;

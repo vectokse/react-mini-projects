@@ -1,9 +1,9 @@
 import type { Cocktail } from "../../../../types/cocktail.types";
-import CocktailCard from "./CocktailCard";
 import CardSkeleton from "../../../reusable-ui/CardSkeleton";
 import styled from "styled-components";
 import theme from "../../../../theme/theme";
 import LoadMore from "./LoadMore";
+import CocktailCard from "../../../reusable-ui/CocktailCard";
 
 interface CatalogResultProps {
   isLoading: boolean;

@@ -7,9 +7,9 @@ export const NAVBAR_LINKS = [
     link: "/",
   },
   {
-    id: "favoris",
+    id: "favorites",
     label: "Favoris",
-    link: "/favoris",
+    link: "/favorites",
   },
   {
     id: "about",
