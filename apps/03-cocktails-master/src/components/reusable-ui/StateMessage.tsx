@@ -1,6 +1,7 @@
 // src/components/reusable-ui/StateMessage.tsx
 import styled from "styled-components";
 import theme from "../../theme/theme";
+import PrimaryBtn from "./PrimaryBtn";
 
 interface StateMessageProps {
   message: string;
@@ -17,9 +18,7 @@ export default function StateMessage({
     <StateMessageStyled>
       <p>{message}</p>
       {actionLabel && onActionClick && (
-        <button className="action-btn" onClick={onActionClick}>
-          {actionLabel}
-        </button>
+        <PrimaryBtn label={actionLabel} onClick={onActionClick} />
       )}
     </StateMessageStyled>
   );

@@ -1,7 +1,7 @@
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import theme from "../../../theme/theme";
-import { IoIosArrowBack } from "react-icons/io";
+
 import { useCocktailDetail } from "../../../hooks/useCocktailDetail";
 import { IngredientsList } from "./IngredientsList";
 import { BadgeCocktail } from "./BadgeCocktail";
@@ -9,6 +9,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useFavorite from "../../../context/FavoritesContext";
 import { IconBtn } from "../../reusable-ui/IconBtn";
 import StateMessage from "../../reusable-ui/StateMessage";
+import PrimaryBtn from "../../reusable-ui/PrimaryBtn";
 
 export default function CocktailDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -25,8 +26,8 @@ export default function CocktailDetailsPage() {
     return (
       <StateMessage
         message={error}
-        actionLabel="Retour à l'accueil"
-        onActionClick={() => navigate("/")}
+        actionLabel="Retour"
+        onActionClick={() => navigate(-1)}
       />
     );
   }
@@ -35,20 +36,22 @@ export default function CocktailDetailsPage() {
     return (
       <StateMessage
         message="🍸 Oups ! Ce cocktail est introuvable."
-        actionLabel="Retour à l'accueil"
-        onActionClick={() => navigate("/")}
+        actionLabel="Retour"
+        onActionClick={() => navigate(-1)}
       />
     );
   }
 
   const isFav = isFavorites(cocktail.id);
 
+  const handleClick = () => {
+    navigate(-1);
+  };
+
   return (
     <CocktailDetailsStyled>
       <div className="nav-container">
-        <Link to="/" className="back-btn">
-          <IoIosArrowBack /> Retour
-        </Link>
+        <PrimaryBtn label="Retour" onClick={handleClick} size="sm" />
       </div>
 
       <div className="detail-layout">
