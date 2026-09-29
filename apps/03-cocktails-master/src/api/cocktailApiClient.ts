@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Cocktail, PaginatedCocktailResponse } from "../types/cocktail.types";
+import type { Cocktail, ICocktailApiClient, PaginatedCocktailResponse } from "../types/cocktail.types";
 import { ALPHABET, API_STRATEGY_MAPPING, ENDPOINTS, NB_TOTAL_COCKTAIL } from "./cocktailApi.config";
 import { mapDrinkToCocktail, removeDuplicateCocktails } from "./cocktailApiUtil";
 
@@ -68,7 +68,7 @@ async function handleCategorySearch(filter: string, searchQuery: string): Promis
     };
 }
 
-export const cocktailApiClient = {
+export const cocktailApiClient :ICocktailApiClient  = {
     async getRandom(): Promise<Cocktail> {
         const response = await apiClient.get(`random.php`);
         const rawData = response.data.drinks?.[0];

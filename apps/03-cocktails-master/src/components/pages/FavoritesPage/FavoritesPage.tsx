@@ -13,11 +13,11 @@ export default function FavoritesPage() {
   const navigate = useNavigate();
 
   if (loading) {
-    <StateMessage message="Chargement de vos favoris..." />;
+    return <StateMessage message="Chargement de vos favoris..." />;
   }
 
   if (errorMsg) {
-    <StateMessage
+    return <StateMessage
       message={errorMsg}
       actionLabel="Réessayer"
       onActionClick={() => window.location.reload()}
