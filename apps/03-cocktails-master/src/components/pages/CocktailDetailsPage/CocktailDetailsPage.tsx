@@ -7,6 +7,7 @@ import { IngredientsList } from "./IngredientsList";
 import { BadgeCocktail } from "./BadgeCocktail";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useFavorite from "../../../context/FavoritesContext";
+import { IconBtn } from "../../reusable-ui/IconBtn";
 
 export default function CocktailDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -43,13 +44,13 @@ export default function CocktailDetailsPage() {
         <div className="right-column">
           <div className="header-row">
             <h1>{cocktail.title}</h1>
-            <button
-              className={`favorite-btn ${isFav ? "is-favorite" : ""}`}
+            <IconBtn
+              icon={isFav ? <FaHeart /> : <FaRegHeart />}
+              variant="surface"
+              size="md"
               onClick={() => toggleFavorite(cocktail)}
               aria-label={isFav ? "Retirer des favoris" : "Ajouter aux favoris"}
-            >
-              {isFav ? <FaHeart /> : <FaRegHeart />}
-            </button>
+            />
           </div>
 
           <div className="section">
@@ -138,9 +139,8 @@ const CocktailDetailsStyled = styled.div`
     gap: 1.5rem;
 
     .header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: grid;
+      grid-template-columns: auto 50px;
       gap: 1rem;
 
       h1 {
@@ -180,26 +180,6 @@ const CocktailDetailsStyled = styled.div`
           color: ${theme.colors.textSecondary};
           margin: 0;
           line-height: 1.6;
-        }
-      }
-
-      .favorite-btn {
-        background: ${theme.colors.surface};
-        cursor: pointer;
-        width: 48px;
-        height: 48px;
-        border: none;
-        border-radius: ${theme.radius.full};
-        font-size: 1.25rem;
-        color: ${theme.colors.accent};
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: ${theme.shadow.sm};
-        transition: all 0.2s ease;
-
-        &:hover {
-          transform: scale(1.05);
         }
       }
     }

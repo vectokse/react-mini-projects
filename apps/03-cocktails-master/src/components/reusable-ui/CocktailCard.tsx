@@ -2,6 +2,7 @@ import { Link, type LinkProps } from "react-router";
 import styled from "styled-components";
 import theme from "../../theme/theme";
 import { memo } from "react";
+import { IconBtn } from "./IconBtn";
 
 interface CocktailCardProps extends LinkProps {
   title: string;
@@ -44,9 +45,12 @@ function CocktailCard({
         <div className="card-footer">
           <span className="txt-footer">{footerText}</span>
           {iconAction && (
-            <button className="button-action" onClick={handleButtonClick}>
-              {iconAction}
-            </button>
+            <IconBtn
+              icon={iconAction}
+              variant="transparent"
+              size="sm"
+              onClick={handleButtonClick}
+            />
           )}
         </div>
       </div>
@@ -122,38 +126,6 @@ const CocktailCardStyled = styled(Link)`
         color: ${theme.colors.accent};
         font-size: ${theme.font.size.xs};
         font-weight: ${theme.font.weight.semibold};
-      }
-
-      .button-action {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        border-radius: ${theme.radius.full};
-        width: 2rem;
-        height: 2rem;
-        cursor: pointer;
-        color: ${theme.colors.accent};
-        transition: all 0.2s ease;
-
-        &:hover {
-          border-color: ${theme.colors.accent};
-
-          svg {
-            transform: scale(1.15);
-          }
-        }
-
-        &:active {
-          transform: scale(0.9);
-        }
-
-        svg {
-          width: 1rem;
-          height: 1rem;
-          transition: transform 0.2s ease;
-        }
       }
     }
   }
