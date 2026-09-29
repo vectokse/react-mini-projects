@@ -1,6 +1,7 @@
 import type { Cocktail } from "../../../../types/cocktail.types";
 import CocktailCard from "../../../reusable-ui/CocktailCard";
 import CardSkeleton from "../../../reusable-ui/CardSkeleton";
+import StateMessage from "../../../reusable-ui/StateMessage";
 import styled from "styled-components";
 import theme from "../../../../theme/theme";
 import LoadMore from "./LoadMore";
@@ -33,12 +34,18 @@ export default function CatalogResult({
   }
 
   if (errorMsg) {
-    return <EmptyGrid message={errorMsg} />;
+    return (
+      <StateMessage
+        message={errorMsg}
+        actionLabel="Réessayer"
+        onActionClick={() => window.location.reload()}
+      />
+    );
   }
 
   if (!isLoading && cocktails.length === 0) {
     return (
-      <EmptyGrid message="🍸 Oups ! Aucun cocktail ne correspond à votre recherche." />
+      <StateMessage message="🍸 Oups ! Aucun cocktail ne correspond à votre recherche." />
     );
   }
 
@@ -111,41 +118,5 @@ const LoadingGridStyled = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     gap: 2rem;
-  }
-`;
-
-interface EmptyGridProps {
-  message: string;
-}
-
-function EmptyGrid({ message }: EmptyGridProps) {
-  return (
-    <EmptyGridStyled>
-      <p>{message}</p>
-    </EmptyGridStyled>
-  );
-}
-const EmptyGridStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 500px;
-  padding: 60px 1.5rem;
-  margin: 0 auto;
-  text-align: center;
-
-  ${theme.device.tablet} {
-    height: 350px;
-  }
-
-  border-radius: ${theme.radius.md};
-  color: ${theme.colors.textSecondary};
-  font-size: ${theme.font.size.md};
-  font-family: ${theme.font.family.primary};
-  max-width: 500px;
-
-  .empty-result p {
-    margin: 0;
-    font-weight: ${theme.font.weight.medium};
   }
 `;

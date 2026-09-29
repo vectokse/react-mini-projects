@@ -1,23 +1,40 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import styled from "styled-components";
 import CocktailCard from "../../reusable-ui/CocktailCard";
+import StateMessage from "../../reusable-ui/StateMessage";
 import useFavorite from "../../../context/FavoritesContext";
 import { theme } from "../../../theme/theme";
+import { useNavigate } from "react-router";
 
 export default function FavoritesPage() {
   const { favorites, loading, isFavorites, toggleFavorite, errorMsg } =
     useFavorite();
 
+  const navigate = useNavigate();
+
   if (loading) {
-    return <StateGrid message="Chargment..." />;
+    <StateMessage message="Chargement de vos favoris..." />;
   }
 
   if (errorMsg) {
-    return <StateGrid message={errorMsg} />;
+    <StateMessage
+      message={errorMsg}
+      actionLabel="Réessayer"
+      onActionClick={() => window.location.reload()}
+    />;
   }
 
   if (favorites.length === 0) {
-    return <StateGrid message="Vous n'avez pas encore de cocktails favoris." />;
+    return (
+      <FavoritesPageStyled>
+        <h1 className="page-title">Mes Cocktails Favoris 🍸</h1>
+        <StateMessage
+          message="Vous n'avez pas encore de cocktails favoris."
+          actionLabel="Explorer les cocktails"
+          onActionClick={() => navigate("/")}
+        />
+      </FavoritesPageStyled>
+    );
   }
 
   return (
@@ -37,21 +54,6 @@ export default function FavoritesPage() {
             onActionClick={() => toggleFavorite(cocktail)}
           />
         ))}
-      </div>
-    </FavoritesPageStyled>
-  );
-}
-
-interface StateGridProps {
-  message: string;
-}
-
-function StateGrid({ message }: StateGridProps) {
-  return (
-    <FavoritesPageStyled>
-      <h1 className="page-title">Mes Cocktails Favoris 🍸</h1>
-      <div className="empty-container">
-        <p>{message}</p>
       </div>
     </FavoritesPageStyled>
   );

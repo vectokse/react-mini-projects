@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import theme from "../../../theme/theme";
 import { IoIosArrowBack } from "react-icons/io";
@@ -8,19 +8,37 @@ import { BadgeCocktail } from "./BadgeCocktail";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import useFavorite from "../../../context/FavoritesContext";
 import { IconBtn } from "../../reusable-ui/IconBtn";
+import StateMessage from "../../reusable-ui/StateMessage";
 
 export default function CocktailDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const { cocktail, isLoading, error } = useCocktailDetail(id);
 
   const { toggleFavorite, isFavorites } = useFavorite();
+  const navigate = useNavigate();
 
   if (isLoading) {
-    return <LoadingCocktail />;
+    return <StateMessage message="Chargement de la recette..." />;
   }
 
-  if (error || !cocktail) {
-    return <ErrorCocktail error={error} />;
+  if (error) {
+    return (
+      <StateMessage
+        message={error}
+        actionLabel="Retour à l'accueil"
+        onActionClick={() => navigate("/")}
+      />
+    );
+  }
+
+  if (!cocktail) {
+    return (
+      <StateMessage
+        message="🍸 Oups ! Ce cocktail est introuvable."
+        actionLabel="Retour à l'accueil"
+        onActionClick={() => navigate("/")}
+      />
+    );
   }
 
   const isFav = isFavorites(cocktail.id);
@@ -182,53 +200,6 @@ const CocktailDetailsStyled = styled.div`
           line-height: 1.6;
         }
       }
-    }
-  }
-`;
-
-function LoadingCocktail() {
-  return <CenterWrapper>Chargement de la recette...</CenterWrapper>;
-}
-
-interface ErrorCocktailProps {
-  error?: string | null;
-}
-
-function ErrorCocktail({ error }: ErrorCocktailProps) {
-  return (
-    <CenterWrapper>
-      <h2>Oups ! {error || "Ce cocktail n'existe pas 🍸"}</h2>
-      <Link to="/" className="back-link">
-        Retour à l'accueil
-      </Link>
-    </CenterWrapper>
-  );
-}
-
-const CenterWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 60vh;
-  gap: 1rem;
-  font-family: ${theme.font.family.primary};
-  color: ${theme.colors.textSecondary};
-  font-size: ${theme.font.size.md};
-  text-align: center;
-
-  h2 {
-    font-family: ${theme.font.family.heading};
-    color: ${theme.colors.textPrimary};
-  }
-
-  .back-link {
-    color: ${theme.colors.accent};
-    font-weight: ${theme.font.weight.semibold};
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
     }
   }
 `;
