@@ -5,10 +5,14 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useCocktailDetail } from "../../../hooks/useCocktailDetail";
 import { IngredientsList } from "./IngredientsList";
 import { BadgeCocktail } from "./BadgeCocktail";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import useFavorite from "../../../context/FavoritesContext";
 
 export default function CocktailDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const { cocktail, isLoading, error } = useCocktailDetail(id);
+
+  const { toggleFavorite, isFavorites } = useFavorite();
 
   if (isLoading) {
     return <LoadingCocktail />;
@@ -17,6 +21,8 @@ export default function CocktailDetailsPage() {
   if (error || !cocktail) {
     return <ErrorCocktail error={error} />;
   }
+
+  const isFav = isFavorites(cocktail.id);
 
   return (
     <CocktailDetailsStyled>
@@ -35,7 +41,16 @@ export default function CocktailDetailsPage() {
         </div>
 
         <div className="right-column">
-          <h1>{cocktail.title}</h1>
+          <div className="header-row">
+            <h1>{cocktail.title}</h1>
+            <button
+              className={`favorite-btn ${isFav ? "is-favorite" : ""}`}
+              onClick={() => toggleFavorite(cocktail)}
+              aria-label={isFav ? "Retirer des favoris" : "Ajouter aux favoris"}
+            >
+              {isFav ? <FaHeart /> : <FaRegHeart />}
+            </button>
+          </div>
 
           <div className="section">
             <h3>Ingrédients</h3>
@@ -122,43 +137,70 @@ const CocktailDetailsStyled = styled.div`
     flex-direction: column;
     gap: 1.5rem;
 
-    h1 {
-      font-family: ${theme.font.family.heading};
-      font-size: 2.5rem;
-      color: ${theme.colors.textPrimary};
-      margin: 0;
-      line-height: 1.1;
-    }
-
-    .glass-info {
-      font-family: ${theme.font.family.primary};
-      font-size: ${theme.font.size.base};
-      color: ${theme.colors.textSecondary};
-
-      strong {
-        color: ${theme.colors.textPrimary};
-        font-weight: ${theme.font.weight.semibold};
-      }
-    }
-
-    .section {
+    .header-row {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
 
-      h3 {
+      h1 {
         font-family: ${theme.font.family.heading};
-        font-size: 1.25rem;
-        color: ${theme.colors.accent};
+        font-size: 2.5rem;
+        color: ${theme.colors.textPrimary};
         margin: 0;
+        line-height: 1.1;
       }
 
-      p {
+      .glass-info {
         font-family: ${theme.font.family.primary};
         font-size: ${theme.font.size.base};
         color: ${theme.colors.textSecondary};
-        margin: 0;
-        line-height: 1.6;
+
+        strong {
+          color: ${theme.colors.textPrimary};
+          font-weight: ${theme.font.weight.semibold};
+        }
+      }
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        h3 {
+          font-family: ${theme.font.family.heading};
+          font-size: 1.25rem;
+          color: ${theme.colors.accent};
+          margin: 0;
+        }
+
+        p {
+          font-family: ${theme.font.family.primary};
+          font-size: ${theme.font.size.base};
+          color: ${theme.colors.textSecondary};
+          margin: 0;
+          line-height: 1.6;
+        }
+      }
+
+      .favorite-btn {
+        background: ${theme.colors.surface};
+        cursor: pointer;
+        width: 48px;
+        height: 48px;
+        border: none;
+        border-radius: ${theme.radius.full};
+        font-size: 1.25rem;
+        color: ${theme.colors.accent};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: ${theme.shadow.sm};
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }

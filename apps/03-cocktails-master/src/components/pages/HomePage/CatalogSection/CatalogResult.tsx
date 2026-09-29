@@ -1,9 +1,11 @@
 import type { Cocktail } from "../../../../types/cocktail.types";
+import CocktailCard from "../../../reusable-ui/CocktailCard";
 import CardSkeleton from "../../../reusable-ui/CardSkeleton";
 import styled from "styled-components";
 import theme from "../../../../theme/theme";
 import LoadMore from "./LoadMore";
-import CocktailCard from "../../../reusable-ui/CocktailCard";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import useFavorite from "../../../../context/FavoritesContext";
 
 interface CatalogResultProps {
   isLoading: boolean;
@@ -24,6 +26,8 @@ export default function CatalogResult({
   loadMoreResult,
   errorMsg,
 }: CatalogResultProps) {
+  const { isFavorites, toggleFavorite } = useFavorite();
+
   if (isLoading) {
     return <LoadingGrid nbItems={9} />;
   }
@@ -47,8 +51,11 @@ export default function CatalogResult({
             key={cocktail.id}
             title={cocktail.title}
             description={cocktail.ingredients.join(", ")}
-            to={`cocktail/${cocktail.id}`}
+            to={`/cocktail/${cocktail.id}`}
             imgSrc={cocktail.imgSrc}
+            footerText="Voir la fiche &rarr;"
+            iconAction={isFavorites(cocktail.id) ? <FaHeart /> : <FaRegHeart />}
+            onActionClick={() => toggleFavorite(cocktail)}
           />
         ))}
       </div>
