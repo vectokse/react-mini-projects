@@ -16,7 +16,7 @@ export default function CatalogSection() {
     filter: activeFilter,
     setFilter,
     query,
-    setQuerry,
+    setQuery,
     loadMoreResult,
     nbResult,
     hasMore,
@@ -36,7 +36,7 @@ export default function CatalogSection() {
         <SearchInput
           value={query}
           onChange={(event) => {
-            setQuerry(event.target.value);
+            setQuery(event.target.value);
           }}
           placeholder="Rechercher un cocktail (ex: Mojito, Spritz...)"
           icon={IoIosSearch}

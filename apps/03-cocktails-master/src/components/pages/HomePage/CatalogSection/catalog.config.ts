@@ -10,6 +10,13 @@ export const Filters  :Filter[]= [
     { name: "soft", label: "Softs" },
 ];
 
+/**
+ * Vérifie si un filtre existe dans la configuration.
+ */
+export const isValidFilter = (filterName: string | null): boolean => {
+  if (!filterName) return false;
+  return Filters.some((f) => f.name === filterName);
+};
 
 export const DEFAULT_CATEGORY: string = "all";
 export const PAGE_SIZE = 9;

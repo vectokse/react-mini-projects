@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
 import type { Cocktail } from "../types/cocktail.types";
 import { cocktailApiClient } from "../api/cocktailApiClient";
-import { DEFAULT_CATEGORY, PAGE_SIZE } from "../components/pages/HomePage/CatalogSection/catalog.config";
+import { DEFAULT_CATEGORY, isValidFilter, PAGE_SIZE } from "../components/pages/HomePage/CatalogSection/catalog.config";
+import { useSearchParams } from "react-router";
 
+// TODO: scroll to the clicked cocktail card on browser back navigation
 export function useCocktailSearch() {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const query = searchParams.get("q") || "";
+    const rawFilter = searchParams.get("f");
+    const filter = isValidFilter(rawFilter) ? rawFilter! : DEFAULT_CATEGORY;
+
     const [cocktails, setCocktails] = useState<Cocktail[]>([]);
+    const [totalItems, setTotalItems] = useState<number>(0);
+    const [pageIndex, setPageIndex] = useState<number>(0);
     const [displayLimit, setDisplayLimit] = useState<number>(PAGE_SIZE);
-    const [isFetchingMore, setIsFetchingMore] = useState<boolean>(false); 
-    
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const [errorMsg, setErrorMsg] = useState<string>("");
 
-    const [query, setQuerry] = useState<string>("");
-    const [filter, setFilter] = useState<string>(DEFAULT_CATEGORY);
-    const [pageIndex, setPageIndex] = useState<number>(0);
+    const [isFetchingMore, setIsFetchingMore] = useState<boolean>(false); 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [hasMore, setHasMore] = useState<boolean>(true);
 
-    const [totalItems, setTotalItems] = useState<number>(0);
 
     /**
      * 1. Recherche
@@ -99,6 +104,35 @@ export function useCocktailSearch() {
     }, [query, filter]);
 
 
+
+
+    const setQuery = (newQuery: string) => {
+        setSearchParams((prev) => {
+            const newParams = new URLSearchParams(prev);
+            const trimmed = newQuery.trim();
+            if (!trimmed) {
+                newParams.delete("q");
+            } else {
+                newParams.set("q", trimmed);
+            }
+            return newParams;
+        }, { replace: true });
+    };
+
+    const setFilter = (newFilter: string) => {
+        setSearchParams((prev) => {
+            const newParams = new URLSearchParams(prev);
+            
+            if (newFilter === DEFAULT_CATEGORY) {
+                newParams.delete("f");
+            } else {
+                newParams.set("f", newFilter);
+            }
+            return newParams;
+        });
+    };
+
+
     return {
         displayedCocktails :cocktails.slice(0, displayLimit),
         isLoading,
@@ -106,7 +140,7 @@ export function useCocktailSearch() {
         filter,
         setFilter,
         query,
-        setQuerry,
+        setQuery,
         loadMoreResult,
         nbResult:totalItems,
         hasMore: displayLimit < cocktails.length || hasMore,
