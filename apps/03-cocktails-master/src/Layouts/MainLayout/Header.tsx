@@ -2,17 +2,22 @@ import styled from "styled-components";
 import Logo from "../../components/reusable-ui/Logo";
 import NavbarLink from "./NavbarLink";
 import theme from "../../theme/theme";
-import { NAVBAR_LINKS } from "./Layout.config";
+import useFavorite from "../../context/FavoritesContext";
 
 export default function Header() {
+  const { favorites } = useFavorite();
+  const favoritesCount = favorites.length;
+
   return (
     <HeaderStyled>
       <nav className="nav-content" aria-label="Navigation principale">
         <Logo />
         <ul>
-          {NAVBAR_LINKS.map(({ id, label, link }) => (
-            <NavbarLink key={id} label={label} link={link} />
-          ))}
+          <NavbarLink link="/" label="Accueil" />
+
+          <NavbarLink link="/favorites" label={`Favoris ${favoritesCount}`} />
+
+          <NavbarLink link="/about" label="À propos" />
         </ul>
       </nav>
     </HeaderStyled>

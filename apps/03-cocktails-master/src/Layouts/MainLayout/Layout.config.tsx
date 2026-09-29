@@ -1,23 +1,5 @@
 import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 
-export const NAVBAR_LINKS = [
-  {
-    id: "home",
-    label: "Accueil",
-    link: "/",
-  },
-  {
-    id: "favorites",
-    label: "Favoris",
-    link: "/favorites",
-  },
-  {
-    id: "about",
-    label: "À propos",
-    link: "/about",
-  },
-] as const;
-
 export const SOCIAL_LINKS = [
   {
     id: "instagram",
