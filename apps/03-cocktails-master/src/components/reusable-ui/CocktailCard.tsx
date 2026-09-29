@@ -11,7 +11,7 @@ interface CocktailCardProps extends LinkProps {
   imgSrc: string;
   footerText?: string;
   iconAction?: React.ReactNode;
-  onActionClick?: (e: React.MouseEvent) => void;
+  onActionClick?: () => void;
 }
 
 function CocktailCard({
@@ -28,7 +28,7 @@ function CocktailCard({
     if (onActionClick) {
       e.preventDefault();
       e.stopPropagation();
-      onActionClick(e);
+      onActionClick();
     }
   };
 

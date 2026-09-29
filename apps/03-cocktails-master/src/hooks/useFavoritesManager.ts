@@ -1,5 +1,4 @@
-// hooks/useFavoritesManager.ts
-import { useState, useCallback, useEffect} from "react";
+import { useState, useCallback, useEffect, useRef} from "react";
 import type { Cocktail } from "../types/cocktail.types";
 import { getStoredFavorites, setStoredFavorites } from "../utils/favoritesStorage";
 import { cocktailApiClient } from "../api/cocktailApiClient";
@@ -9,6 +8,9 @@ export const useFavoritesManager = () => {
   const [favorites, setFavorites] = useState<Cocktail[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, seterrorMsg] = useState<string>("");
+
+  const favoritesRef = useRef(favorites);
+  favoritesRef.current = favorites;
   
   useEffect(() => {
   const initFavorite = async () => {
@@ -46,8 +48,8 @@ export const useFavoritesManager = () => {
 
 
   const isFavorites = useCallback((id: string): boolean => {
-    return favorites.some((item) => item.id === id);
-  }, [favorites]);
+    return favoritesRef.current.some((item) => item.id === id);
+  }, []);
 
   useEffect(() => {
     const ids = favorites.map((fav) => fav.id);
