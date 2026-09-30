@@ -1,7 +1,3 @@
-/**
- * Temporary data for development — will be replaced later
- * @TODO : Replace with real project data
- */
 export const projects = [
   {
     id: 1,
@@ -17,6 +13,12 @@ export const projects = [
   },
   {
     id: 3,
+    title: "cocktails Master",
+    imageUrl: "cocktails-master.png",
+    link: "cocktails-master/",
+  },
+  {
+    id: 4,
     title: "Weather App",
     imageUrl: "default-project.png",
     link: "https://github.com",
